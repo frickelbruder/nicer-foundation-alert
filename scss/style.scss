@@ -1,0 +1,10 @@
+@import 'foundation/components/alert-boxes';
+
+.nicer-alert-container {
+  position: fixed;
+}
+
+.nicer-alert-bottom-right {
+  bottom: 20px;
+  right: 20px;
+}
