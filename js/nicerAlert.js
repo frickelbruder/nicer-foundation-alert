@@ -18,8 +18,8 @@
             this.S('body').append('<div data-nicerAlert id="' + this.settings.containerId + '" class="nicer-alert-' + this.settings.position + '"></div>');
         },
 
-/*        events : function () {
-            var self = this,
+        events : function () {
+            /*            var self = this,
                 S = this.S;
 
             $(this.scope).off('.alert').on('click.fndtn.alert', '[' + this.attr_name() + '] .close', function (e) {
@@ -39,8 +39,8 @@
                         settings.callback();
                     });
                 }
-            });
-        },*/
+            });*/
+        },
 
         alert: function(message, type) {
             this.ensureContainer();
