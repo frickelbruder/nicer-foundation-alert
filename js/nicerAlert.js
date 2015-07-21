@@ -1,4 +1,4 @@
-;(function ($, window, document, undefined) {
+;(function ($) {
     'use strict';
 
     Foundation.libs.nicerAlert = {
@@ -8,16 +8,17 @@
 
         settings : {
             position: 'top-center',
+            containerId: 'nicer-alert-container',
             callback : function () {}
         },
 
         init : function (scope, method, options) {
             $.extend(true, this.settings, method, options);
             this.bindings(method, options);
-            this.S('body').append('<div class="nicer-alert-container nicer-alert-' + this.settings.position + '"></div>');
+            this.S('body').append('<div data-nicerAlert id="' + this.settings.containerId + '" class="nicer-alert-' + this.settings.position + '"></div>');
         },
 
-        events : function () {
+/*        events : function () {
             var self = this,
                 S = this.S;
 
@@ -39,13 +40,18 @@
                     });
                 }
             });
-        },
+        },*/
 
         alert: function(message, type) {
-            $('.nicer-alert-container').append('<div data-alert class="alert-box ' + type + ' round">' +
+            this.ensureContainer();
+            $('#' + this.settings.containerId).append('<div data-alert class="alert-box ' + type + ' round">' +
                 message +
                 '<a href="#" class="close">&times;</a>' +
                 '</div>');
+        },
+
+        ensureContainer: function() {
+
         },
 
         reflow : function () {}
