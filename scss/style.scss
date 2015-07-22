@@ -1,9 +1,7 @@
-@import 'foundation/components/alert-boxes';
+@import 'config';
 
 #nicer-alert-container {
   position: fixed;
-  top: 0;
-  left: 0;
 }
 
 .nicer-alert-bottom-right {

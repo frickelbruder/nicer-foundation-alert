@@ -1,6 +1,13 @@
 ;(function ($) {
     'use strict';
 
+    function buildTemplate(template, options, newId) {
+        var message = options.message,
+            type = options.type || "info",
+            alertBox = template.replace(/\{type}/, type).replace(/\{message}/, message);
+        return $(alertBox).attr('data-nicerAlert-id', newId);
+    }
+
     Foundation.libs.nicerAlert = {
         name : 'nicerAlert',
 
@@ -10,7 +17,9 @@
             position: 'top-center',
             containerId: 'nicer-alert-container',
             callback : function () {},
-            template: '<div data-alert class="alert-box {type} round">{message}<a href="#" class="close">&times;</a></div>'
+            template: '<div data-alert class="alert-box {type} radius">{message}<a href="#" class="close">&times;</a></div>',
+            showMax: 4,
+            visibleTimer: 2500
         },
 
         init : function (scope, method, options) {
@@ -20,39 +29,23 @@
         },
 
         events : function () {
-            /*            var self = this,
-             S = this.S;
-
-             $(this.scope).off('.alert').on('click.fndtn.alert', '[' + this.attr_name() + '] .close', function (e) {
-             var alertBox = S(this).closest('[' + self.attr_name() + ']'),
-             settings = alertBox.data(self.attr_name(true) + '-init') || self.settings;
-
-             e.preventDefault();
-             if (Modernizr.csstransitions) {
-             alertBox.addClass('alert-close');
-             alertBox.on('transitionend webkitTransitionEnd oTransitionEnd', function (e) {
-             S(this).trigger('close.fndtn.alert').remove();
-             settings.callback();
-             });
-             } else {
-             alertBox.fadeOut(300, function () {
-             S(this).trigger('close.fndtn.alert').remove();
-             settings.callback();
-             });
-             }
-             });*/
         },
 
         alert: function(options) {
             if(!options || !options.message) {
                 return;
             }
-            var message = options.message,
-                type = options.type || "info";
+
             this.ensureContainer();
+            this.ensureMaximumAlerts();
+            var alertBox = buildTemplate(this.settings.template, options, this.getAlertId());
             this.S('#' + this.settings.containerId).append(
-                this.settings.template.replace(/\{type}/, type).replace(/\{message}/, message)
+                alertBox
             );
+        },
+
+        getAlertId: function() {
+            return Foundation.utils.random_str();
         },
 
         ensureContainer: function() {
@@ -60,6 +53,27 @@
                 return;
             }
             this.S('body').append('<div data-nicerAlert id="' + this.settings.containerId + '" class="nicer-alert-' + this.settings.position + '"></div>');
+        },
+
+        ensureMaximumAlerts: function() {
+            var $alertBoxes = this.S(this.scope).find('[data-alert]:not(.nicerAlert-removing)'),
+                visibleAlerts = $alertBoxes.length,
+                self = this;
+            debugger;
+            if(visibleAlerts < this.settings.showMax - 1) {
+                return;
+            }
+
+            var itemsToRemove = visibleAlerts - this.settings.showMax + 1,
+                $alertBoxesToRemove = $alertBoxes.slice(0, itemsToRemove);
+
+            $alertBoxesToRemove.each(function() {
+                self.removeAlert($(this));
+            });
+        },
+
+        removeAlert: function($alert) {
+            $alert.find('.close').click();
         },
 
         reflow : function () {}
