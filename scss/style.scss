@@ -1,10 +1,32 @@
 @import 'foundation/components/alert-boxes';
 
-.nicer-alert-container {
+#nicer-alert-container {
   position: fixed;
+  top: 0;
+  left: 0;
 }
 
 .nicer-alert-bottom-right {
   bottom: 20px;
+  right: 20px;
+}
+.nicer-alert-middle-right {
+  bottom: 50%;
+  right: 20px;
+}
+.nicer-alert-top-right {
+  top: 20px;
+  right: 20px;
+}
+.nicer-alert-bottom-left {
+  bottom: 20px;
+  right: 20px;
+}
+.nicer-alert-middle-left {
+  bottom: 50%;
+  right: 20px;
+}
+.nicer-alert-top-left {
+  top: 20px;
   right: 20px;
 }
