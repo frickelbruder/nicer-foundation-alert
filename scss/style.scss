@@ -2,6 +2,7 @@
 
 #nicer-alert-container {
   position: fixed;
+  z-index: 99999;
 }
 
 .nicer-alert-bottom-right {
@@ -27,4 +28,16 @@
 .nicer-alert-top-left {
   top: 20px;
   right: 20px;
+}
+.nicer-alert-top-center {
+  top: 20px;
+  left: 50%;
+}
+.nicer-alert-middle-center {
+  top: 50%;
+  left: 50%;
+}
+.nicer-alert-bottom-center {
+  bottom: 20px;
+  left: 50%;
 }

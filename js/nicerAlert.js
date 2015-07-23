@@ -14,12 +14,14 @@
         version : '{{VERSION}}',
 
         settings : {
-            position: 'top-center',
+            position: 'bottom-right',
             containerId: 'nicer-alert-container',
             callback : function () {},
             template: '<div data-alert class="alert-box {type} radius">{message}<a href="#" class="close">&times;</a></div>',
             showMax: 4,
-            visibleTimer: 2500
+            visibleTimer: 2500,
+            containerWidth: 70,
+            containerWidthUnit: '%'
         },
 
         init : function (scope, method, options) {
@@ -42,24 +44,48 @@
             this.S('#' + this.settings.containerId).append(
                 alertBox
             );
+            this.autohideAlertBox(alertBox);
         },
 
         getAlertId: function() {
             return Foundation.utils.random_str();
         },
 
+        autohideAlertBox: function(alertBox) {
+            var timeout = this.settings.visibleTimer || 0;
+            if( parseInt(timeout) == 0 ) {
+                return;
+            }
+
+            window.setTimeout(function() {
+                $(document).foundation('nicerAlert', 'removeAlert', $(alertBox));
+            }, timeout);
+        },
+
         ensureContainer: function() {
             if(this.S('#' + this.settings.containerId).length > 0) {
                 return;
             }
-            this.S('body').append('<div data-nicerAlert id="' + this.settings.containerId + '" class="nicer-alert-' + this.settings.position + '"></div>');
+
+            var styles = this.buildInlineStyle();
+            this.S('body').append('<div data-nicerAlert id="' + this.settings.containerId + '" style="' + styles + '" class="nicer-alert-' + this.settings.position + '"></div>');
+        },
+
+        buildInlineStyle: function() {
+            var styles = 'width: ' + this.settings.containerWidth + this.settings.containerWidthUnit + ';';
+            switch(this.settings.position) {
+                case 'middle-center' :
+                case 'top-center' :
+                case 'bottom-center' : styles += 'margin-left: -' + (this.settings.containerWidth/2) + this.settings.containerWidthUnit + ';'
+            }
+            return styles;
         },
 
         ensureMaximumAlerts: function() {
             var $alertBoxes = this.S(this.scope).find('[data-alert]:not(.nicerAlert-removing)'),
                 visibleAlerts = $alertBoxes.length,
                 self = this;
-            debugger;
+
             if(visibleAlerts < this.settings.showMax - 1) {
                 return;
             }
@@ -68,7 +94,7 @@
                 $alertBoxesToRemove = $alertBoxes.slice(0, itemsToRemove);
 
             $alertBoxesToRemove.each(function() {
-                self.removeAlert($(this));
+                self.removeAlert(self.S(this));
             });
         },
 
