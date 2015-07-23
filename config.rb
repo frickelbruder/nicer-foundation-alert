@@ -9,7 +9,7 @@ http_stylesheets_path = "/css/"
 http_javascripts_path = "/js/"
 
 css_path = "css/"
-sass_path = scss/"
+sass_path = "scss/"
 
 
 sass_options = { :debug_info => true }
