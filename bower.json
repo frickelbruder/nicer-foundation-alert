@@ -1,13 +1,27 @@
 {
   "name": "nicer-foundation-alert",
+  "version": "0.1.0",
+  "description": "Enhancement to the foundation alert-boxes component",
+  "main": [
+    "js/nicerAlert.js",
+    "scss/style.scss",
+    "css/style.css"
+  ],
   "ignore": [
   ],
   "dependencies": {
     "jquery": ">= 2.1.0",
-    "modernizr": ">= 2.7.2",
     "foundation": ">= 5.2"
   },
   "devDependencies": {
   },
-  "private": true
+  "license": "MIT",
+  "keywords": [
+    "alert",
+    "foundation"
+  ],
+  "authors": [
+    "Frickelbruder"
+  ]
+
 }
