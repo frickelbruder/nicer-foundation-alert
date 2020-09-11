@@ -3,20 +3,20 @@
 [Foundation alerts](http://foundation.zurb.com/docs/components/alert_boxes.html) are great. But sometimes, they are just a little bit too static.
  This module aims to make them feel a little bit more like the great [noty-Jquery-Plugin](https://github.com/needim/noty).
  
-#Install
+# Install
 
 Just install via bower:
 
     bower install frickelbruder/nicer-foundation-alert
  
-#Make it work
+# Make it work
 
-##CSS
+## CSS
 Add the nicer-foundation-alert.css into the head of your html-document like this:
 
      <link rel="stylesheet" type="text/css" href="js/nicer-foundation-alert/css/style.css">
  
-##JS 
+## JS 
 Just load your foundation as normal. Just pour a little frickelbruder-magic on it:
 
     <script src="js/vendor/jquery.js"></script>
@@ -34,7 +34,7 @@ After that, you can call
     
 The nicerAlert will take care of the new alert reflow-call.
     
-#Configuration
+# Configuration
 
 - **position**:  
  Where the alerts should show up. Default is 'bottom-right'.  
